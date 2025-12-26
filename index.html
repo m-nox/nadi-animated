@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nadi Digital Agency - The Pulse of Business</title>
+    
+    <!-- Tailwind CSS (Loaded via CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts: Plus Jakarta Sans for UI, JetBrains Mono for 'Code' elements -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons (Lucide) - Using jsDelivr for better stability -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- Tailwind Configuration with Safety Check -->
+    <script>
+        const configureTailwind = () => {
+            if (window.tailwind) {
+                window.tailwind.config = {
+                    darkMode: 'class',
+                    theme: {
+                        extend: {
+                            fontFamily: {
+                                sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                                mono: ['"JetBrains Mono"', 'monospace'],
+                            },
+                            colors: {
+                                nadi: {
+                                    black: '#0a0a0a',   /* Original Pitch Black */
+                                    dark: '#121212',
+                                    gray: '#1E1E1E',
+                                    red: '#FF2E2E',     /* Pulse Red */
+                                    blue: '#00F0FF',    /* Cyber Cyan */
+                                    white: '#F8F9FA'
+                                }
+                            },
+                            animation: {
+                                'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                                'ecg-line': 'ecgMove 2s linear infinite',
+                                'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                            },
+                            keyframes: {
+                                ecgMove: {
+                                    '0%': { transform: 'translateX(-100%)' },
+                                    '100%': { transform: 'translateX(100%)' }
+                                },
+                                fadeInUp: {
+                                    '0%': { opacity: '0', transform: 'translateY(20px)' },
+                                    '100%': { opacity: '1', transform: 'translateY(0)' }
+                                }
+                            }
+                        }
+                    }
+                };
+            } else {
+                setTimeout(configureTailwind, 50);
+            }
+        };
+        configureTailwind();
+    </script>
+
+    <style>
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #1E1E1E; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #FF2E2E; }
+
+        .nadi-line-container { position: relative; overflow: hidden; height: 2px; background: rgba(255, 46, 46, 0.1); }
+        .nadi-line-active { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, #FF2E2E, transparent); animation: ecgMove 2s linear infinite; }
+
+        .page-section { display: none; opacity: 0; transition: opacity 0.3s ease-in-out; }
+        .page-section.active { display: block; opacity: 1; }
+
+        .glitch-text:hover { text-shadow: 2px 0 #FF2E2E, -2px 0 #00F0FF; }
+        
+        /* Prose for Blog */
+        .prose p { margin-bottom: 1.5em; line-height: 1.8; color: #d1d5db; }
+        .prose h2 { font-size: 1.5rem; font-weight: 700; color: white; margin-top: 2em; margin-bottom: 1em; }
+        .prose ul { list-style-type: disc; padding-left: 1.5em; margin-bottom: 1.5em; color: #d1d5db; }
+    </style>
+</head>
+<body class="bg-nadi-black text-nadi-white overflow-x-hidden font-sans antialiased selection:bg-nadi-red selection:text-white">
+
+    <!-- Fixed Header -->
+    <header class="fixed top-0 w-full z-50 bg-nadi-black/90 backdrop-blur-md border-b border-white/5">
+        <div class="container mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-3 cursor-pointer group" onclick="navigateTo('home')">
+                <div class="h-10 w-16 relative flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+                    <svg viewBox="0 0 100 50" fill="none" class="w-full h-full drop-shadow-[0_0_5px_rgba(255,46,46,0.6)]">
+                         <path d="M5 25 H 30 L 40 5 L 50 45 L 60 15 L 70 25 H 95" stroke="#FF2E2E" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" class="group-hover:stroke-[#00F0FF] transition-colors duration-300" />
+                    </svg>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl font-bold tracking-wider glitch-text transition-all">NADI</span>
+                    <span class="text-[0.6rem] text-gray-400 font-mono tracking-[0.2em] group-hover:text-nadi-blue">-. .- -.. ..</span>
+                </div>
+            </div>
+
+            <nav class="hidden md:flex gap-8 items-center">
+                <a href="#" onclick="navigateTo('home')" class="nav-link text-sm font-medium hover:text-nadi-red transition-colors relative group">HOME<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-nadi-red transition-all group-hover:w-full"></span></a>
+                <a href="#" onclick="navigateTo('services')" class="nav-link text-sm font-medium hover:text-nadi-red transition-colors relative group">SERVICES<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-nadi-red transition-all group-hover:w-full"></span></a>
+                <a href="#" onclick="navigateTo('portfolio')" class="nav-link text-sm font-medium hover:text-nadi-red transition-colors relative group">PORTFOLIO<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-nadi-red transition-all group-hover:w-full"></span></a>
+                <a href="#" onclick="navigateTo('insight')" class="nav-link text-sm font-medium hover:text-nadi-red transition-colors relative group">INSIGHT<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-nadi-red transition-all group-hover:w-full"></span></a>
+                <button onclick="navigateTo('contact')" class="px-5 py-2 border border-nadi-red text-nadi-red hover:bg-nadi-red hover:text-white transition-all text-sm font-bold tracking-wide rounded-sm">START PROJECT</button>
+            </nav>
+
+            <button class="md:hidden text-white hover:text-nadi-red" onclick="toggleMobileMenu()"><i data-lucide="menu" class="w-6 h-6"></i></button>
+        </div>
+        
+        <div id="mobile-menu" class="hidden md:hidden bg-nadi-black border-b border-white/10 absolute w-full top-20 left-0 p-6 flex-col gap-4">
+            <a href="#" onclick="navigateTo('home'); toggleMobileMenu()" class="block text-lg font-medium hover:text-nadi-red">Home</a>
+            <a href="#" onclick="navigateTo('services'); toggleMobileMenu()" class="block text-lg font-medium hover:text-nadi-red">Services</a>
+            <a href="#" onclick="navigateTo('portfolio'); toggleMobileMenu()" class="block text-lg font-medium hover:text-nadi-red">Portfolio</a>
+            <a href="#" onclick="navigateTo('insight'); toggleMobileMenu()" class="block text-lg font-medium hover:text-nadi-red">Insight</a>
+            <a href="#" onclick="navigateTo('contact'); toggleMobileMenu()" class="block text-lg font-medium hover:text-nadi-red">Contact</a>
+        </div>
+    </header>
+
+    <main class="pt-20 min-h-screen relative">
+        <div class="fixed top-0 left-0 w-full h-full pointer-events-none z-0">
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-nadi-blue/5 rounded-full blur-3xl animate-pulse-slow"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-nadi-red/5 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 1s;"></div>
+            <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
+        </div>
+
+        <!-- ================= PAGE: HOME (Centered Layout Restored) ================= -->
+        <section id="home" class="page-section active z-10 relative">
+            <div class="container mx-auto px-6 py-20 min-h-[85vh] flex flex-col justify-center items-center text-center">
+                <div class="max-w-4xl">
+                    <div class="font-mono text-nadi-blue mb-4 flex items-center justify-center gap-2">
+                        <span class="w-2 h-2 bg-nadi-red rounded-full animate-ping"></span>
+                        <span id="typewriter-text" class="text-sm tracking-widest">INITIALIZING SYSTEM...</span>
+                    </div>
+
+                    <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-8">
+                        The <span class="text-transparent bg-clip-text bg-gradient-to-r from-nadi-red to-orange-600">Heartbeat</span> of Your <br />
+                        <span id="decoding-text" class="text-white border-b-4 border-nadi-blue/50 pb-2">DIGITAL BUSINESS</span>
+                    </h1>
+
+                    <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                        Nadi adalah agensi digital yang memadukan strategi pemasaran berbasis data dengan pengembangan teknologi presisi. Kami menghidupkan visi Anda menjadi kode fungsional.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button onclick="navigateTo('portfolio')" class="group px-8 py-4 bg-nadi-white text-nadi-black font-bold tracking-wide hover:bg-nadi-blue transition-colors flex items-center gap-2 justify-center">
+                            LIHAT KARYA <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                        <button onclick="navigateTo('services')" class="px-8 py-4 border border-white/20 text-white font-medium hover:border-nadi-red hover:text-nadi-red transition-colors justify-center">
+                            JELAJAHI LAYANAN
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-white/10 pt-8 animate-fade-in-up w-full max-w-4xl">
+                    <div><h3 class="text-3xl font-bold font-mono text-white">7+</h3><p class="text-sm text-gray-500 uppercase tracking-wider mt-1">Years Experience</p></div>
+                    <div><h3 class="text-3xl font-bold font-mono text-nadi-blue">15+</h3><p class="text-sm text-gray-500 uppercase tracking-wider mt-1">Apps Launched</p></div>
+                    <div><h3 class="text-3xl font-bold font-mono text-white">5K+</h3><p class="text-sm text-gray-500 uppercase tracking-wider mt-1">Users Impacted</p></div>
+                    <div><div class="flex items-center justify-center gap-1 text-nadi-red font-mono"><span class="animate-pulse">●</span> LIVE</div><p class="text-sm text-gray-500 uppercase tracking-wider mt-1">System Status</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE: SERVICES (Grid Layout Restored) ================= -->
+        <section id="services" class="page-section z-10 relative">
+            <div class="container mx-auto px-6 py-16">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-4">Layanan <span class="text-nadi-red">Terintegrasi</span></h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">Kami tidak hanya membangun, kami memastikan ekosistem digital Anda hidup dan tumbuh.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Marketing -->
+                    <div onclick="navigateTo('pricing-digital-marketing')" class="bg-nadi-gray p-8 border border-white/5 hover:border-nadi-red/50 transition-all group cursor-pointer relative rounded-sm">
+                        <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-xs font-mono text-nadi-red flex items-center gap-1">LIHAT PAKET <i data-lucide="arrow-right" class="w-3 h-3"></i></div>
+                        <div class="w-12 h-12 bg-nadi-red/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-nadi-red group-hover:text-white transition-colors text-nadi-red"><i data-lucide="trending-up" class="w-6 h-6"></i></div>
+                        <h3 class="text-xl font-bold mb-4 text-white">Digital Marketing</h3>
+                        <ul class="space-y-3 text-gray-400"><li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-nadi-red rounded-full"></div> SEO Optimization</li><li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-nadi-red rounded-full"></div> SEM & Paid Ads</li></ul>
+                    </div>
+                    <!-- Creative -->
+                    <div onclick="navigateTo('pricing-creative-content')" class="bg-nadi-gray p-8 border border-white/5 hover:border-nadi-blue/50 transition-all group cursor-pointer relative rounded-sm">
+                        <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-xs font-mono text-nadi-blue flex items-center gap-1">LIHAT PAKET <i data-lucide="arrow-right" class="w-3 h-3"></i></div>
+                        <div class="w-12 h-12 bg-nadi-blue/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-nadi-blue group-hover:text-nadi-black transition-colors text-nadi-blue"><i data-lucide="pen-tool" class="w-6 h-6"></i></div>
+                        <h3 class="text-xl font-bold mb-4 text-white">Creative Content</h3>
+                        <ul class="space-y-3 text-gray-400"><li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-nadi-blue rounded-full"></div> UI/UX Design</li><li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-nadi-blue rounded-full"></div> Content Strategy</li></ul>
+                    </div>
+                    <!-- Development -->
+                    <div onclick="navigateTo('pricing-development')" class="bg-nadi-gray p-8 border border-white/5 hover:border-white/50 transition-all group cursor-pointer relative rounded-sm">
+                        <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-xs font-mono text-white flex items-center gap-1">LIHAT PAKET <i data-lucide="arrow-right" class="w-3 h-3"></i></div>
+                        <div class="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-white group-hover:text-nadi-black transition-colors text-white"><i data-lucide="smartphone" class="w-6 h-6"></i></div>
+                        <h3 class="text-xl font-bold mb-4 text-white">Development</h3>
+                        <ul class="space-y-3 text-gray-400"><li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-white rounded-full"></div> Mobile & Web Apps</li><li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-white rounded-full"></div> System Architecture</li></ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= NEW PRICING SECTIONS (Budget Friendly) ================= -->
+        
+        <!-- PRICING: MARKETING -->
+        <section id="pricing-digital-marketing" class="page-section z-10 relative">
+             <div class="container mx-auto px-6 py-16">
+                <button onclick="navigateTo('services')" class="flex items-center gap-2 text-sm text-gray-500 hover:text-nadi-red mb-8"><i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali</button>
+                <div class="text-center mb-12"><h2 class="text-3xl font-bold">Paket <span class="text-nadi-red">Digital Marketing</span></h2></div>
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <!-- Starter -->
+                    <div class="bg-nadi-gray border border-white/10 p-8 flex flex-col">
+                        <h3 class="text-lg font-bold text-white mb-2">Social Starter</h3>
+                        <div class="text-2xl font-bold text-nadi-red mb-4">Rp 999.000<span class="text-sm text-gray-500">/bln</span></div>
+                        <ul class="space-y-3 text-sm text-gray-400 mb-8 flex-1"><li>8 Feed Design</li><li>Admin Posting</li><li>Basic Caption</li></ul>
+                        <button onclick="document.getElementById('contact-service').value='Marketing - Starter'; navigateTo('contact')" class="w-full py-3 border border-white/20 text-white hover:bg-white hover:text-black font-bold text-sm">PILIH</button>
+                    </div>
+                    <!-- Growth (Max 2.5) -->
+                    <div class="bg-nadi-gray border border-nadi-red p-8 flex flex-col transform md:-translate-y-2 relative">
+                        <div class="absolute top-0 right-0 bg-nadi-red text-white text-[10px] px-2 py-1">POPULAR</div>
+                        <h3 class="text-lg font-bold text-white mb-2">Ads Growth</h3>
+                        <div class="text-2xl font-bold text-nadi-red mb-4">Rp 2.500.000<span class="text-sm text-gray-500">/bln</span></div>
+                        <ul class="space-y-3 text-sm text-white mb-8 flex-1"><li>Setup Meta/Google Ads</li><li>2 Set Creative Banner</li><li>Weekly Report</li><li>Riset Audience</li></ul>
+                        <button onclick="document.getElementById('contact-service').value='Marketing - Growth'; navigateTo('contact')" class="w-full py-3 bg-nadi-red text-white hover:bg-red-600 font-bold text-sm">PILIH</button>
+                    </div>
+                    <!-- Custom -->
+                    <div class="bg-nadi-gray border border-white/10 p-8 flex flex-col justify-center items-center text-center">
+                        <i data-lucide="settings" class="w-8 h-8 text-white mb-4"></i>
+                        <h3 class="text-lg font-bold text-white mb-2">Custom Budget</h3>
+                        <p class="text-sm text-gray-400 mb-6">Sesuaikan strategi dengan budget Anda.</p>
+                        <button onclick="document.getElementById('contact-service').value='Marketing - Custom'; navigateTo('contact')" class="text-nadi-red font-bold text-sm uppercase">Konsultasi Gratis -></button>
+                    </div>
+                </div>
+             </div>
+        </section>
+
+        <!-- PRICING: CREATIVE -->
+        <section id="pricing-creative-content" class="page-section z-10 relative">
+             <div class="container mx-auto px-6 py-16">
+                <button onclick="navigateTo('services')" class="flex items-center gap-2 text-sm text-gray-500 hover:text-nadi-blue mb-8"><i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali</button>
+                <div class="text-center mb-12"><h2 class="text-3xl font-bold">Paket <span class="text-nadi-blue">Creative</span></h2></div>
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <!-- Starter -->
+                    <div class="bg-nadi-gray border border-white/10 p-8 flex flex-col">
+                        <h3 class="text-lg font-bold text-white mb-2">Logo Basic</h3>
+                        <div class="text-2xl font-bold text-nadi-blue mb-4">Rp 1.500.000</div>
+                        <ul class="space-y-3 text-sm text-gray-400 mb-8 flex-1"><li>2 Konsep Logo</li><li>File Master</li><li>Panduan Warna</li></ul>
+                        <button onclick="document.getElementById('contact-service').value='Creative - Logo'; navigateTo('contact')" class="w-full py-3 border border-white/20 text-white hover:bg-white hover:text-black font-bold text-sm">PILIH</button>
+                    </div>
+                    <!-- Growth -->
+                    <div class="bg-nadi-gray border border-nadi-blue p-8 flex flex-col transform md:-translate-y-2 relative">
+                        <div class="absolute top-0 right-0 bg-nadi-blue text-black text-[10px] px-2 py-1">POPULAR</div>
+                        <h3 class="text-lg font-bold text-white mb-2">Content Monthly</h3>
+                        <div class="text-2xl font-bold text-nadi-blue mb-4">Rp 2.500.000</div>
+                        <ul class="space-y-3 text-sm text-white mb-8 flex-1"><li>12 Feed Design</li><li>2 Reels Video</li><li>Copywriting</li><li>Content Calendar</li></ul>
+                        <button onclick="document.getElementById('contact-service').value='Creative - Monthly'; navigateTo('contact')" class="w-full py-3 bg-nadi-blue text-black hover:bg-cyan-400 font-bold text-sm">PILIH</button>
+                    </div>
+                    <!-- Custom -->
+                    <div class="bg-nadi-gray border border-white/10 p-8 flex flex-col justify-center items-center text-center">
+                        <i data-lucide="palette" class="w-8 h-8 text-white mb-4"></i>
+                        <h3 class="text-lg font-bold text-white mb-2">Custom Project</h3>
+                        <p class="text-sm text-gray-400 mb-6">Video editing, Company Profile, dll.</p>
+                        <button onclick="document.getElementById('contact-service').value='Creative - Custom'; navigateTo('contact')" class="text-nadi-blue font-bold text-sm uppercase">Diskusi Visual -></button>
+                    </div>
+                </div>
+             </div>
+        </section>
+
+        <!-- PRICING: DEV -->
+        <section id="pricing-development" class="page-section z-10 relative">
+             <div class="container mx-auto px-6 py-16">
+                <button onclick="navigateTo('services')" class="flex items-center gap-2 text-sm text-gray-500 hover:text-white mb-8"><i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali</button>
+                <div class="text-center mb-12"><h2 class="text-3xl font-bold">Paket <span class="text-white">Development</span></h2></div>
+                <div class="grid md:grid-cols-2 gap-6 mb-8 max-w-4xl mx-auto">
+                    <!-- Starter -->
+                    <div class="bg-nadi-gray border border-white/30 p-8 flex flex-col">
+                        <h3 class="text-lg font-bold text-white mb-2">Landing Page Kilat</h3>
+                        <div class="text-2xl font-bold text-white mb-4">Rp 2.500.000</div>
+                        <ul class="space-y-3 text-sm text-gray-400 mb-8 flex-1"><li>Single Page Website</li><li>Responsive Mobile</li><li>Free Hosting 1 Thn</li><li>SEO Basic</li></ul>
+                        <button onclick="document.getElementById('contact-service').value='Dev - Landing Page'; navigateTo('contact')" class="w-full py-3 bg-white text-black hover:bg-gray-200 font-bold text-sm">ORDER WEBSITE</button>
+                    </div>
+                    <!-- Custom -->
+                    <div class="bg-nadi-gray border border-white/10 p-8 flex flex-col justify-center items-center text-center">
+                        <i data-lucide="code" class="w-8 h-8 text-white mb-4"></i>
+                        <h3 class="text-lg font-bold text-white mb-2">Custom App / System</h3>
+                        <p class="text-sm text-gray-400 mb-6">Aplikasi iOS, Android, atau Sistem HRMS kompleks.</p>
+                        <button onclick="document.getElementById('contact-service').value='Dev - Custom'; navigateTo('contact')" class="text-white font-bold text-sm uppercase border-b border-white pb-1">Minta Penawaran -></button>
+                    </div>
+                </div>
+             </div>
+        </section>
+
+        <!-- ================= PAGE: PORTFOLIO ================= -->
+        <section id="portfolio" class="page-section z-10 relative">
+            <div class="container mx-auto px-6 py-16">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                    <div><h2 class="text-4xl font-bold mb-2">Featured <span class="text-nadi-blue">Project</span></h2><p class="text-gray-400">Solusi nyata yang kami bangun.</p></div>
+                    <div class="hidden md:flex gap-2 font-mono text-xs text-gray-500"><span>FILTER:</span><span class="text-nadi-red cursor-pointer">[ALL]</span></div>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="portfolio-grid"></div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE: INSIGHT & CMS PAGES (Hidden) ================= -->
+        <section id="insight" class="page-section z-10 relative">
+            <div class="container mx-auto px-6 py-16">
+                <div class="text-center mb-16"><h2 class="text-4xl font-bold mb-4">Nadi <span class="text-nadi-blue">Insight</span></h2><p class="text-gray-400">Perspektif teknologi & bisnis.</p></div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="blog-grid-container"></div>
+            </div>
+        </section>
+
+        <section id="contact" class="page-section z-10 relative">
+            <div class="container mx-auto px-6 py-16">
+                <div class="max-w-2xl mx-auto bg-nadi-gray p-8 border border-white/10 rounded-lg shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-nadi-red via-nadi-blue to-nadi-red animate-ecg-line"></div>
+                    <div class="text-center mb-10"><h2 class="text-3xl font-bold mb-2">Mulai Kolaborasi</h2><p class="text-gray-400">Hubungi kami untuk audit digital gratis.</p></div>
+                    <form class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div><label class="block text-xs font-mono text-gray-500 mb-2">NAMA</label><input id="contact-name" type="text" class="w-full bg-nadi-black border border-white/10 p-3 text-white focus:border-nadi-red outline-none"></div>
+                            <div><label class="block text-xs font-mono text-gray-500 mb-2">EMAIL</label><input id="contact-email" type="email" class="w-full bg-nadi-black border border-white/10 p-3 text-white focus:border-nadi-blue outline-none"></div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-mono text-gray-500 mb-2">LAYANAN</label>
+                            <select id="contact-service" class="w-full bg-nadi-black border border-white/10 p-3 text-white focus:border-white outline-none">
+                                <option>iOS Development</option><option>Android Development</option><option>Web Development</option><option>SEO & Marketing</option><option>UI/UX Design</option>
+                            </select>
+                        </div>
+                        <div><label class="block text-xs font-mono text-gray-500 mb-2">PESAN</label><textarea id="contact-message" rows="4" class="w-full bg-nadi-black border border-white/10 p-3 text-white focus:border-nadi-red outline-none"></textarea></div>
+                        <button type="button" onclick="handleFormSubmit()" class="w-full py-4 bg-nadi-red text-white font-bold tracking-wider hover:bg-red-600 transition-colors flex items-center justify-center gap-2"><i data-lucide="radio" class="w-5 h-5 animate-pulse"></i> EKSEKUSI TRANSMISI</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- CMS PAGES -->
+        <section id="login" class="page-section z-20 relative">
+            <div class="container mx-auto px-6 py-24 flex justify-center items-center min-h-[60vh]">
+                <div class="w-full max-w-md bg-nadi-gray p-8 border border-white/10 rounded-lg">
+                    <h2 class="text-2xl font-bold mb-6 text-center text-white">System Access</h2>
+                    <input type="text" id="login-email" class="w-full bg-nadi-black border border-white/10 p-3 mb-4 text-white placeholder-gray-600" placeholder="Username">
+                    <input type="password" id="login-password" class="w-full bg-nadi-black border border-white/10 p-3 mb-4 text-white placeholder-gray-600" placeholder="Password">
+                    <button onclick="handleLogin()" class="w-full py-3 bg-white text-black font-bold hover:bg-gray-200">AUTHENTICATE</button>
+                    <p class="text-xs text-gray-600 text-center mt-4">Admin: admin/123 | Writer: writer/123</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="dashboard" class="page-section z-20 relative">
+            <div class="container mx-auto px-6 py-12">
+                <div class="flex justify-between items-center mb-8 border-b border-white/10 pb-4"><h2 class="text-3xl font-bold">Workspace <span id="user-role-display" class="text-sm font-mono bg-white/10 px-2 py-1 rounded ml-2">ROLE</span></h2><div class="flex gap-4"><button onclick="showWriteModal()" class="px-4 py-2 bg-nadi-blue text-black font-bold text-sm">TULIS ARTIKEL</button><button onclick="handleLogout()" class="px-4 py-2 border border-white/20 text-white text-sm">LOGOUT</button></div></div>
+                <div class="bg-nadi-gray border border-white/10 rounded-lg overflow-hidden"><table class="w-full text-left text-sm text-gray-400"><thead class="bg-black/40 text-xs uppercase text-white"><tr><th class="px-6 py-3">Status</th><th class="px-6 py-3">Judul</th><th class="px-6 py-3 text-right">Aksi</th></tr></thead><tbody id="dashboard-table-body" class="divide-y divide-white/5"></tbody></table></div>
+            </div>
+        </section>
+
+        <section id="write-page" class="page-section z-30 relative">
+            <div class="container mx-auto px-6 py-12 max-w-4xl">
+                 <button onclick="navigateTo('dashboard')" class="flex items-center gap-2 text-sm text-gray-500 hover:text-white mb-6"><i data-lucide="arrow-left" class="w-4 h-4"></i> BATAL</button>
+                <h2 class="text-2xl font-bold mb-6">Editor Artikel</h2>
+                <div class="bg-nadi-gray border border-white/10 p-6 rounded-lg space-y-6">
+                    <input type="hidden" id="edit-post-id">
+                    <input type="text" id="post-title" class="w-full bg-nadi-black border border-white/10 p-4 text-xl text-white outline-none" placeholder="Judul Artikel">
+                    <div class="grid grid-cols-2 gap-6"><select id="post-category" class="w-full bg-nadi-black border border-white/10 p-3 text-white outline-none"><option>Technology</option><option>Digital Marketing</option></select><input type="text" id="post-image" class="w-full bg-nadi-black border border-white/10 p-3 text-white outline-none" placeholder="URL Gambar"></div>
+                    <textarea id="post-content" rows="12" class="w-full bg-nadi-black border border-white/10 p-4 text-gray-300 outline-none" placeholder="Tulis konten (HTML supported)..."></textarea>
+                    <div class="flex justify-end gap-4"><button onclick="savePost('draft')" class="px-6 py-2 border border-white/20 text-white">DRAFT</button><button onclick="savePost('pending')" class="px-6 py-2 bg-nadi-blue text-black font-bold">KIRIM</button></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-nadi-dark border-t border-white/5 py-12 mt-20 relative">
+        <div class="nadi-line-container mb-8"><div class="nadi-line-active"></div></div>
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-left"><h3 class="text-2xl font-bold tracking-widest">NADI</h3><p class="text-xs text-gray-500 font-mono mt-2">-. .- -.. ..</p></div>
+            <div class="text-gray-400 text-sm flex flex-col items-center md:items-end"><span>&copy; 2025 Nadi Digital Agency.</span><a href="#" onclick="navigateTo('login')" class="text-xs text-gray-800 hover:text-nadi-red mt-2 transition-colors">System Login</a></div>
+        </div>
+    </footer>
+
+    <script>
+        let currentUser = null; 
+        let posts = []; 
+        let users = [];
+
+        function initData() {
+            const storedPosts = localStorage.getItem('nadi_posts');
+            if (storedPosts) { posts = JSON.parse(storedPosts); } else {
+                posts = [
+                    { id: 1, title: "Masa Depan AI iOS", author: "Nanda", date: "2024-03-15", category: "Technology", status: "published", excerpt: "CoreML mengubah cara kita membangun aplikasi.", image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800", content: "<p>AI bukan lagi fitur tambahan...</p>" },
+                    { id: 2, title: "SEO Startup SaaS", author: "Admin", date: "2024-03-10", category: "Digital Marketing", status: "published", excerpt: "Dominasi kata kunci long-tail.", image: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&q=80&w=800", content: "<p>Konten adalah raja...</p>" }
+                ];
+                localStorage.setItem('nadi_posts', JSON.stringify(posts));
+            }
+            const storedUsers = localStorage.getItem('nadi_users');
+            if (!storedUsers) {
+                users = [{ username: 'admin', password: '123', role: 'admin', name: 'Super Admin' }, { username: 'writer', password: '123', role: 'writer', name: 'Writer' }];
+                localStorage.setItem('nadi_users', JSON.stringify(users));
+            } else { users = JSON.parse(storedUsers); }
+        }
+
+        function initApp() {
+            if (typeof lucide === 'undefined') { setTimeout(initApp, 100); return; }
+            lucide.createIcons(); initData(); renderPortfolio(); renderBlogPublic();
+        }
+        document.addEventListener("DOMContentLoaded", initApp);
+
+        function navigateTo(pageId) {
+            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+            const target = document.getElementById(pageId);
+            if(target) { target.classList.add('active'); window.scrollTo(0, 0); }
+            if ((pageId === 'dashboard' || pageId === 'write-page') && !currentUser) { navigateTo('login'); return; }
+            if (pageId === 'dashboard') renderDashboard();
+            if (pageId === 'insight') renderBlogPublic();
+        }
+
+        function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); document.getElementById('mobile-menu').classList.toggle('flex'); }
+
+        function renderPortfolio() {
+            const container = document.getElementById('portfolio-grid');
+            if (!container || container.children.length > 0) return;
+             const data = [
+                { t: "Portal Kerja HRMS", c: "Job Platform", desc: "HRMS terintegrasi.", u: "https://apps.apple.com/id/app/portal-kerja-hrms/id6479629717" },
+                { t: "Livin' by Mandiri", c: "Fintech", desc: "Super app finansial.", u: "https://apps.apple.com/id/app/livin-by-mandiri/id1555414743" },
+                { t: "Kkuljaem", c: "Edutech", desc: "Belajar bahasa Korea.", u: "https://apps.apple.com/id/app/kkuljaem/id1586145527" },
+                { t: "Portal Sekolah", c: "Education", desc: "Sistem sekolah.", u: "https://apps.apple.com/id/app/portal-sekolah-orang-tua/id6476955227" },
+                { t: "KlikDokter", c: "Health Tech", desc: "Konsultasi dokter.", u: "https://apps.apple.com/id/app/klikdokter-jaga-sehatmu/id1001542966" },
+                { t: "Saham Daily", c: "Finance", desc: "Pantau saham.", u: "https://apps.apple.com/id/app/saham-daily/id1620758550" }
+            ];
+            data.forEach(i => {
+                container.innerHTML += `<div class="group relative bg-nadi-gray border border-white/5 overflow-hidden rounded-sm hover:border-nadi-blue/50 transition-all duration-300 h-64"><div class="h-full bg-gradient-to-br from-gray-800 to-black flex items-center justify-center relative overflow-hidden group"><div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div><span class="font-mono text-4xl font-bold text-white/5 group-hover:text-white/10 transition-colors select-none">${i.t.substring(0,2).toUpperCase()}</span><div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black via-black/80 to-transparent z-10 translate-y-4 group-hover:translate-y-0 transition-transform duration-300"><div class="text-xs font-mono text-nadi-red mb-1">${i.c.toUpperCase()}</div><h4 class="text-xl font-bold text-white mb-1">${i.t}</h4><a href="${i.u}" target="_blank" class="text-xs border-b border-white pb-1 hover:text-nadi-blue hover:border-nadi-blue">VIEW APP</a></div></div></div>`;
+            });
+            lucide.createIcons();
+        }
+
+        function renderBlogPublic() {
+            const container = document.getElementById('blog-grid-container');
+            container.innerHTML = '';
+            const pub = posts.filter(p => p.status === 'published').sort((a,b)=> new Date(b.date)-new Date(a.date));
+            if(pub.length === 0) { container.innerHTML = '<p class="text-gray-500">No content.</p>'; return; }
+            pub.forEach(p => {
+                container.innerHTML += `<div onclick="showArticleDetail(${p.id})" class="bg-nadi-gray border border-white/10 rounded-lg overflow-hidden cursor-pointer group hover:border-nadi-red/50"><div class="h-48 bg-gray-800 relative"><img src="${p.image}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all"></div><div class="p-4"><div class="text-xs text-gray-500 mb-2">${p.date} • <span class="text-nadi-red">${p.author}</span></div><h3 class="text-lg font-bold text-white mb-2 group-hover:text-nadi-blue transition-colors">${p.title}</h3><p class="text-xs text-gray-400 line-clamp-2">${p.excerpt}</p></div></div>`;
+            });
+        }
+
+        function showArticleDetail(id) {
+            const p = posts.find(x => x.id === id);
+            if(!p) return;
+            document.getElementById('article-content-area').innerHTML = `<div class="mb-8 border-b border-white/10 pb-4"><span class="px-2 py-1 bg-nadi-blue/10 text-nadi-blue text-xs font-mono rounded">${p.category}</span><h1 class="text-3xl font-bold text-white mt-4 mb-2">${p.title}</h1><div class="text-xs text-gray-400 font-mono">${p.author} • ${p.date}</div></div><img src="${p.image}" class="w-full h-64 object-cover rounded-lg mb-8"><article class="prose prose-invert max-w-none">${p.content}</article>`;
+            navigateTo('insight-detail');
+        }
+
+        function handleLogin() {
+            const u = document.getElementById('login-email').value, p = document.getElementById('login-password').value;
+            if(u==='admin' && p==='123') currentUser={role:'admin',name:'Admin'}; 
+            else if(u==='writer' && p==='123') currentUser={role:'writer',name:'Writer'};
+            else { alert('Invalid'); return; }
+            navigateTo('dashboard');
+        }
+        function handleLogout() { currentUser=null; navigateTo('login'); }
+
+        function renderDashboard() {
+            document.getElementById('user-role-display').innerText = currentUser.role.toUpperCase();
+            const tb = document.getElementById('dashboard-table-body'); tb.innerHTML='';
+            const dPosts = currentUser.role==='writer' ? posts.filter(p=>p.author===currentUser.name) : posts;
+            dPosts.forEach(p => {
+                let act = currentUser.role==='admin' && p.status==='pending' ? `<button onclick="chStat(${p.id},'published')" class="text-green-400 mr-2">Approve</button>` : '';
+                act += `<button onclick="editPost(${p.id})" class="text-blue-400 mr-2">Edit</button><button onclick="delPost(${p.id})" class="text-red-400">Del</button>`;
+                tb.innerHTML += `<tr><td class="px-6 py-4 uppercase text-xs">${p.status}</td><td class="px-6 py-4 font-bold text-white">${p.title}</td><td class="px-6 py-4 text-right">${act}</td></tr>`;
+            });
+        }
+
+        function showWriteModal() { document.getElementById('edit-post-id').value=''; document.getElementById('post-title').value=''; document.getElementById('post-content').value=''; navigateTo('write-page'); }
+        function editPost(id) { const p = posts.find(x=>x.id===id); document.getElementById('edit-post-id').value=p.id; document.getElementById('post-title').value=p.title; document.getElementById('post-content').value=p.content; navigateTo('write-page'); }
+        function savePost(st) {
+            const id = document.getElementById('edit-post-id').value, t = document.getElementById('post-title').value, c = document.getElementById('post-content').value;
+            if(!t || !c) return alert('Isi data');
+            const newP = { id: id?parseInt(id):Date.now(), title:t, content:c, category: document.getElementById('post-category').value, image: document.getElementById('post-image').value || "https://via.placeholder.com/800", author: currentUser.name, status: st, date: new Date().toISOString().split('T')[0], excerpt: c.substring(0,50)+'...' };
+            if(id) { const idx = posts.findIndex(x=>x.id==id); posts[idx]=newP; } else posts.push(newP);
+            localStorage.setItem('nadi_posts', JSON.stringify(posts)); navigateTo('dashboard');
+        }
+        function chStat(id,s){ const idx=posts.findIndex(x=>x.id==id); if(idx!==-1){posts[idx].status=s; localStorage.setItem('nadi_posts', JSON.stringify(posts)); renderDashboard();}}
+        function delPost(id){ if(confirm('Delete?')){posts=posts.filter(x=>x.id!==id); localStorage.setItem('nadi_posts', JSON.stringify(posts)); renderDashboard();}}
+
+        function handleFormSubmit() {
+            const n=document.getElementById('contact-name').value, e=document.getElementById('contact-email').value, s=document.getElementById('contact-service').value, m=document.getElementById('contact-message').value;
+            window.location.href = `mailto:dewa.bagusalif@gmail.com,nanda.mocha@gmail.com?subject=NADI: ${s}&body=Name:${n}%0AEmail:${e}%0AMsg:${m}`;
+        }
+
+        const phrases = ["DIGITAL BUSINESS", "APP ECOSYSTEM", "WEB PRESENCE"];
+        let phraseIndex = 0;
+        const textElement = document.getElementById('decoding-text');
+        setInterval(() => {
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+            let targetText = phrases[phraseIndex], iterations = 0;
+            const interval = setInterval(() => {
+                textElement.innerText = targetText.split('').map((l, i) => i < iterations ? l : 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._'[Math.floor(Math.random() * 37)]).join('');
+                if (iterations >= targetText.length) clearInterval(interval);
+                iterations += 1 / 2;
+            }, 50);
+        }, 5000);
+    </script>
+</body>
+</html>
